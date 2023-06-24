@@ -27,8 +27,43 @@ function testWebP(callback) {
     }
     });
 
+    function uncheckOthers(checkbox) {
+        const checkboxes = document.querySelectorAll('.round-checkbox');
+        checkboxes.forEach((cb) => {
+          if (cb !== checkbox) {
+            cb.checked = false;
+          }
+        });
+      }
 
 
+    window.addEventListener('load', function () {
+    // Получаем элементы прелоадера и контента страницы
+    var preloader = document.getElementById('preloader');
+    var loader = document.querySelector('#preloader p');
+    var content = document.querySelector('body');
+
+    // Устанавливаем начальное значение загрузки
+    var loadProgress = 0;
+
+    // Функция, которая обновляет значение загрузки и текст прелоадера
+    function updateProgress() {
+        loadProgress += 1;
+        loader.textContent = loadProgress + '%';
+
+        // Если загрузка достигла 100%, скрываем прелоадер и останавливаем обновление значения
+        if (loadProgress >= 100) {
+            clearInterval(progressInterval);
+            preloader.style.display = 'none';
+            content.style.visibility = 'visible';
+        }
+    }
+
+    // Имитируем процесс загрузки с помощью таймера
+    var progressInterval = setInterval(updateProgress, 50);
+});
+
+    
     const menuIcon = document.querySelector('.menu-icon');
 const menu = document.querySelector('.menu');
 const menuCancel = document.querySelector('.fa-bars');
@@ -107,3 +142,4 @@ menuIcon.addEventListener('click', () => {
 //     btnOpen: '.section__button2',
 //     btnClose: '.modal__close'
 //   });
+    
